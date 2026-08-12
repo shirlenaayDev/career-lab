@@ -1,35 +1,35 @@
 # Career Lab
 
-Personal Career Operating System — sistem berbasis data untuk merencanakan, mencatat, dan mengevaluasi perjalanan karier secara terstruktur.
+A Personal Career Operating System — a data-driven system for planning, tracking, and evaluating career development in a structured way.
 
-## Tentang Project
+## About
 
-Career Lab dibangun untuk membantu proses pengambilan keputusan karier berbasis evidence — mencatat eksperimen karier, skill, project, pengalaman, proses belajar, dan persiapan internship dalam satu sistem yang saling terhubung.
+Career Lab is built to support evidence-based career decision-making — tracking career experiments, skills, projects, experiences, learning progress, and internship preparation within one connected system.
 
 **Status:** In development — Sprint 6 of 7 (Personal Branding)
 
 ## Tech Stack
 
 - **Database:** PostgreSQL (via Supabase)
-- **Design:** Figma (wireframe & UI design)
+- **Design:** Figma (wireframes & UI design)
 - **Workspace (MVP):** Notion
-- **Diagram:** Draw.io
+- **Diagrams:** Draw.io
 - **Data Dictionary:** Excel
 
-## Struktur Folder
+## Folder Structure
 
-- `analysis/` — requirement, riset, dan analisis pendukung project
-- `database/` — DDL, seed data, dan skrip terkait database
-- `docs/` — dokumentasi project (ERD, Data Dictionary, project overview)
+- `analysis/` — requirements, research, and supporting analysis
+- `database/` — DDL scripts, seed data, and database-related files
+- `docs/` — project documentation (ERD, Data Dictionary, project overview)
 
 ## Progress
 
-Dikerjakan secara sprint-by-sprint:
-- ✅ Sprint 1-3 — Requirement, UI/UX Design, Database Implementation
+Built sprint-by-sprint:
+- ✅ Sprint 1-3 — Requirements, UI/UX Design, Database Implementation
 - ✅ Sprint 4 — Notion MVP
-- ✅ Sprint 5 — Career Experiment tracking
+- ✅ Sprint 5 — Career Experiment Tracking
 - 🔄 Sprint 6 — Personal Branding (LinkedIn, CV, GitHub)
 - ⏳ Sprint 7 — Portfolio & Web Application
 
 ---
-*Solo project oleh Shirlenaay — Information Systems student.*
+*Solo project by Shirlenaay — Information Systems student.*
