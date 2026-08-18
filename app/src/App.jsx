@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
 import Login from './Login'
 import ReflectionForm from './ReflectionForm'
+import ApplicationForm from './ApplicationForm'
+import SkillForm from './SkillForm'
 import './App.css'
 
 function App() {
@@ -10,6 +12,8 @@ function App() {
   const [projects, setProjects] = useState([])
   const [experiments, setExperiments] = useState([])
   const [reflections, setReflections] = useState([])
+  const [applications, setApplications] = useState([])
+  const [skills, setSkills] = useState([])
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -30,6 +34,18 @@ function App() {
     })
   }
 
+  function refreshApplications() {
+    supabase.from('applications').select('*').order('date_applied', { ascending: false }).then(({ data, error }) => {
+      if (!error) setApplications(data)
+    })
+  }
+
+  function refreshSkills() {
+  supabase.from('skills').select('*').then(({ data, error }) => {
+    if (!error) setSkills(data)
+  })
+  }
+
   useEffect(() => {
     if (session) {
       supabase.from('projects').select('*').then(({ data, error }) => {
@@ -39,6 +55,8 @@ function App() {
         if (!error) setExperiments(data)
       })
       refreshReflections()
+      refreshApplications()
+      refreshSkills()
     }
   }, [session])
 
@@ -95,6 +113,34 @@ function App() {
       )}
 
       <ReflectionForm session={session} onSuccess={refreshReflections} />
+
+      <h2>Applications</h2>
+      {applications.length === 0 ? (
+        <p>No applications yet.</p>
+      ) : (
+        <ul>
+          {applications.map((a) => (
+            <li key={a.application_id}>
+              {a.company} — {a.position} ({a.application_status})
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <ApplicationForm session={session} onSuccess={refreshApplications} />
+      <h2>Skills</h2>
+      {skills.length === 0 ? (
+        <p>No skills yet.</p>
+      ) : (
+        <ul>
+          {skills.map((s) => (
+            <li key={s.skill_id}>
+              {s.name} ({s.category}) — {s.proficiency_level}
+            </li>
+          ))}
+        </ul>
+      )}
+      <SkillForm session={session} onSuccess={refreshSkills} />
     </div>
   )
 }
