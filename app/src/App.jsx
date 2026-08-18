@@ -1,33 +1,50 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
+import Login from './Login'
 import './App.css'
 
 function App() {
-  const [projects, setProjects] = useState([])
+  const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [projects, setProjects] = useState([])
 
   useEffect(() => {
-    async function fetchProjects() {
-      const { data, error } = await supabase.from('projects').select('*')
-      if (error) {
-        setError(error.message)
-      } else {
-        setProjects(data)
-      }
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
       setLoading(false)
-    }
-    fetchProjects()
+    })
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => listener.subscription.unsubscribe()
   }, [])
 
+  useEffect(() => {
+    if (session) {
+      supabase.from('projects').select('*').then(({ data, error }) => {
+        if (!error) setProjects(data)
+      })
+    }
+  }, [session])
+
+  async function handleLogout() {
+    await supabase.auth.signOut()
+  }
+
   if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error}</p>
+  if (!session) return <Login />
 
   return (
     <div>
-      <h1>Career Lab — Connection Test</h1>
+      <h1>Career Lab — Dashboard</h1>
+      <p>Logged in as: {session.user.email}</p>
+      <button onClick={handleLogout}>Logout</button>
+
+      <h2>My Projects</h2>
       {projects.length === 0 ? (
-        <p>No projects found (this is expected if RLS is blocking anon access).</p>
+        <p>No projects yet.</p>
       ) : (
         <ul>
           {projects.map((p) => (
