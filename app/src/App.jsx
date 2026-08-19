@@ -4,6 +4,7 @@ import Login from './Login'
 import ReflectionForm from './ReflectionForm'
 import ApplicationForm from './ApplicationForm'
 import SkillForm from './SkillForm'
+import LearningForm from './LearningForm'
 import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [reflections, setReflections] = useState([])
   const [applications, setApplications] = useState([])
   const [skills, setSkills] = useState([])
+  const [learning, setLearning] = useState([])
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -41,9 +43,15 @@ function App() {
   }
 
   function refreshSkills() {
-  supabase.from('skills').select('*').then(({ data, error }) => {
-    if (!error) setSkills(data)
-  })
+    supabase.from('skills').select('*').then(({ data, error }) => {
+      if (!error) setSkills(data)
+    })
+  }
+
+  function refreshLearning() {
+    supabase.from('learning').select('*').then(({ data, error }) => {
+      if (!error) setLearning(data)
+    })
   }
 
   useEffect(() => {
@@ -57,6 +65,7 @@ function App() {
       refreshReflections()
       refreshApplications()
       refreshSkills()
+      refreshLearning()
     }
   }, [session])
 
@@ -128,6 +137,7 @@ function App() {
       )}
 
       <ApplicationForm session={session} onSuccess={refreshApplications} />
+
       <h2>Skills</h2>
       {skills.length === 0 ? (
         <p>No skills yet.</p>
@@ -140,7 +150,23 @@ function App() {
           ))}
         </ul>
       )}
+
       <SkillForm session={session} onSuccess={refreshSkills} />
+
+      <h2>Learning</h2>
+      {learning.length === 0 ? (
+        <p>No learning records yet.</p>
+      ) : (
+        <ul>
+          {learning.map((l) => (
+            <li key={l.learning_id}>
+              {l.title} — {l.platform || 'N/A'} ({l.status}, {l.progress_percentage}%)
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <LearningForm session={session} onSuccess={refreshLearning} />
     </div>
   )
 }
