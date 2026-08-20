@@ -5,7 +5,42 @@ import ReflectionForm from './ReflectionForm'
 import ApplicationForm from './ApplicationForm'
 import SkillForm from './SkillForm'
 import LearningForm from './LearningForm'
+import DashboardHeader from './components/dashboard/DashboardHeader';
+import StatCards from './components/dashboard/StatCards';
+import Sidebar from './components/layout/Sidebar';
+import Topbar from './components/layout/Topbar';
+import ActivityFeed from './components/dashboard/ActivityFeed';
 import './App.css'
+
+function Dashboard() {
+  return (
+    <div className="app-layout">
+      <Sidebar activeItem="Dashboard" />
+      <main className="main-content">
+        <Topbar userName="User1" userRole="Student" />
+        <DashboardHeader
+          userName="User1"
+          careerFocus="Business Analyst"
+          confidenceScore={72}
+          confidenceChange={8}
+          nextLearning="Fundamental of BA"
+          chapter="Chapter 1"
+          progress={65}
+        />
+        <StatCards />
+
+        <div className="dashboard-grid">
+          <div className="dashboard-col-left">
+            <ActivityFeed />
+          </div>
+          <div className="dashboard-col-right">
+            {/* Upcoming Application nanti di sini */}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
 
 function App() {
   const [session, setSession] = useState(null)
@@ -78,11 +113,12 @@ function App() {
 
   return (
     <div>
-      <h1>Career Lab — Dashboard</h1>
+      <Dashboard />
       <p>Logged in as: {session.user.email}</p>
       <button onClick={handleLogout}>Logout</button>
 
       <h2>My Projects</h2>
+
       {projects.length === 0 ? (
         <p>No projects yet.</p>
       ) : (

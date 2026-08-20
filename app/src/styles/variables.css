@@ -1,0 +1,16 @@
+:root {
+  --bg-main: #090829;
+  --card-bg: rgba(27, 27, 68, 0.20);
+  --card-bg-solid: #1B1B44;
+  --twilight-indigo: #3B3664;
+  --electric-sapphire: #6C7CFB;
+  --wisteria-blue: #80A1D4;
+  --accent-purple: #7247F6;
+  --accent-purple-light: #8A38F5;
+  --accent-cyan: #09BBC8;
+  --accent-lavender: #C3A5FA;
+  --text-white: #FFFFFF;
+  --text-muted: rgba(217, 252, 237, 0.60);
+  --font-display: 'DM Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
