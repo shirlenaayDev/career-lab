@@ -17,7 +17,7 @@ function StatCards() {
         return (
           <div className="stat-card" key={index}>
             <div className="stat-icon-wrap" style={{ background: stat.bg }}>
-              <IconComponent size={22} color={stat.color} />
+              <IconComponent size={26} color={stat.color} />
             </div>
             <div className="stat-card-text">
               <p className="stat-card-value" style={{ color: stat.color }}>{stat.value}</p>

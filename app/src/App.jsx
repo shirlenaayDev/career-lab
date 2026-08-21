@@ -10,6 +10,9 @@ import StatCards from './components/dashboard/StatCards';
 import Sidebar from './components/layout/Sidebar';
 import Topbar from './components/layout/Topbar';
 import ActivityFeed from './components/dashboard/ActivityFeed';
+import UpcomingApplication from './components/dashboard/UpcomingApplication';
+import WeeklyReflectionSummary from './components/dashboard/WeeklyReflectionSummary';
+import SkillGrowth from './components/dashboard/SkillGrowth';
 import './App.css'
 
 function Dashboard() {
@@ -32,9 +35,11 @@ function Dashboard() {
         <div className="dashboard-grid">
           <div className="dashboard-col-left">
             <ActivityFeed />
+            <WeeklyReflectionSummary />
+            <SkillGrowth />
           </div>
           <div className="dashboard-col-right">
-            {/* Upcoming Application nanti di sini */}
+            <UpcomingApplication />
           </div>
         </div>
       </main>

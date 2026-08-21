@@ -1,5 +1,9 @@
 .activity-feed-card {
-  background: var(--card-bg);
+  background: rgba(27, 27, 68, 0.35);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
   border-radius: 15px;
   padding: 20px 24px;
   width: 100%;
@@ -40,6 +44,7 @@
 .activity-text {
   flex: 1;
   min-width: 0;
+  text-align: left;
 }
 
 .activity-title {

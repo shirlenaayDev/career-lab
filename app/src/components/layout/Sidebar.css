@@ -2,8 +2,8 @@
   width: 216px;
   min-width: 216px;
   min-height: 100vh;
-  background: var(--bg-main);
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(59, 54, 100, 0.25) 0%, rgba(9, 8, 41, 0.4) 100%);
+  border-right: var(--glass-border);
   display: flex;
   flex-direction: column;
   padding: 20px 14px;

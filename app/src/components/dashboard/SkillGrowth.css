@@ -1,0 +1,43 @@
+.skill-growth-card {
+  background: rgba(27, 27, 68, 0.35);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 15px;
+  padding: 18px 20px;
+  width: 100%;
+}
+
+.skill-growth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.skill-growth-title {
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0;
+  text-align: left;
+}
+
+.skill-growth-period-btn {
+  background: linear-gradient(90deg, #405FFA 0%, #4CD8C4 100%);
+  color: black;
+  border: none;
+  border-radius: 14px;
+  padding: 5px 14px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.skill-growth-chart {
+  width: 100%;
+}
