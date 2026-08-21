@@ -30,12 +30,15 @@
   color: black;
   border: none;
   border-radius: 14px;
-  padding: 5px 14px;
+  padding: 5px 12px;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 11px;
   cursor: pointer;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .skill-growth-chart {

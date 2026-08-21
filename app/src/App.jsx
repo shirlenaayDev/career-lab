@@ -13,6 +13,7 @@ import ActivityFeed from './components/dashboard/ActivityFeed';
 import UpcomingApplication from './components/dashboard/UpcomingApplication';
 import WeeklyReflectionSummary from './components/dashboard/WeeklyReflectionSummary';
 import SkillGrowth from './components/dashboard/SkillGrowth';
+import ProjectProgress from './components/dashboard/ProjectProgress';
 import './App.css'
 
 function Dashboard() {
@@ -35,11 +36,12 @@ function Dashboard() {
         <div className="dashboard-grid">
           <div className="dashboard-col-left">
             <ActivityFeed />
-            <WeeklyReflectionSummary />
-            <SkillGrowth />
+            <ProjectProgress />
           </div>
           <div className="dashboard-col-right">
-            <UpcomingApplication />
+          <UpcomingApplication />
+          <WeeklyReflectionSummary />
+          <SkillGrowth />
           </div>
         </div>
       </main>
