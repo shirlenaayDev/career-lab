@@ -11,7 +11,7 @@ function WeeklyReflectionSummary() {
           <div className="reflection-icon-wrap">
             <Smile size={20} color="#82E38F" />
           </div>
-          <div className="reflection-text">
+          <div className="reflection-content">
             <p className="reflection-label">Mood rata-rata</p>
             <p className="reflection-value" style={{ color: '#82E38F' }}>4.3/5</p>
             <p className="reflection-caption">Good progress!</p>
@@ -21,17 +21,21 @@ function WeeklyReflectionSummary() {
         <div className="reflection-divider" />
 
         <div className="reflection-summary-block center">
-          <p className="reflection-label">Refleksi minggu ini</p>
-          <p className="reflection-value" style={{ color: '#5EC3D6' }}>3</p>
-          <p className="reflection-caption">Selesai</p>
+          <div className="reflection-content">
+            <p className="reflection-label">Refleksi minggu ini</p>
+            <p className="reflection-value" style={{ color: '#5EC3D6' }}>3</p>
+            <p className="reflection-caption">Selesai</p>
+          </div>
         </div>
 
         <div className="reflection-divider" />
 
         <div className="reflection-summary-block center">
-          <p className="reflection-label">Insight baru</p>
-          <p className="reflection-value" style={{ color: '#82E38F' }}>2</p>
-          <p className="reflection-caption">Hal Penting</p>
+          <div className="reflection-content">
+            <p className="reflection-label">Insight baru</p>
+            <p className="reflection-value" style={{ color: '#82E38F' }}>2</p>
+            <p className="reflection-caption">Hal Penting</p>
+          </div>
         </div>
       </div>
     </div>

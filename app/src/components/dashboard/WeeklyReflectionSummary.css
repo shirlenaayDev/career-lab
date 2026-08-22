@@ -20,20 +20,23 @@
 
 .reflection-summary-row {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .reflection-summary-block {
-  flex: 1.4;
+  flex: 1.2;
   min-width: 0;
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-start;
+  gap: 4px;
+  padding-right: 8px;
 }
 
 .reflection-summary-block.center {
   flex: 1;
+  padding-right: 0;
+  justify-content: center;
 }
 
 .reflection-icon-wrap {
@@ -45,28 +48,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: -2px;
+  margin-left: -6px;
+  margin-top: 22px;
 }
 
-.reflection-text {
+.reflection-content {
   min-width: 0;
+  text-align: center;
+  flex: 1;
 }
 
 .reflection-label {
   color: var(--text-white);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 10.5px;
+  font-size: 11px;
   margin: 0;
   line-height: 1.3;
-  white-space: nowrap;
+  min-height: 28px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .reflection-value {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 22px;
-  margin: 3px 0 0 0;
+  margin: 6px 0 0 0;
   line-height: 1;
 }
 
@@ -75,14 +84,18 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 10px;
-  margin: 3px 0 0 0;
+  margin: 4px 0 0 0;
   line-height: 1.3;
+  white-space: nowrap;
 }
 
 .reflection-divider {
   width: 1px;
-  height: 44px;
+  height: 78px;
   background: var(--twilight-indigo);
+  margin: 0 4px;
+  flex-shrink: 0;
+  align-self: stretch;
 }
 
 @media (max-width: 500px) {

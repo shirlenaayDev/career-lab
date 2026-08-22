@@ -1,3 +1,4 @@
+import { Goal, ArrowUp } from 'lucide-react';
 import './DashboardHeader.css';
 
 function DashboardHeader({ userName, careerFocus, confidenceScore, confidenceChange, nextLearning, chapter, progress }) {
@@ -12,9 +13,14 @@ function DashboardHeader({ userName, careerFocus, confidenceScore, confidenceCha
       </div>
 
       <div className="header-stats-card">
-        <div className="stat-block">
-          <p className="stat-label">Current Career Fokus</p>
-          <p className="stat-value focus-value">{careerFocus}</p>
+        <div className="stat-block focus-block">
+          <div className="focus-icon-wrap">
+            <Goal size={26} color="#9E98FB" />
+          </div>
+          <div className="focus-text">
+            <p className="stat-label">Current Career Fokus</p>
+            <p className="stat-value focus-value">{careerFocus}</p>
+          </div>
         </div>
 
         <div className="divider" />
@@ -25,7 +31,10 @@ function DashboardHeader({ userName, careerFocus, confidenceScore, confidenceCha
           <div className="progress-bar-track">
             <div className="progress-bar-fill confidence-fill" style={{ width: `${confidenceScore}%` }} />
           </div>
-          <p className="stat-caption confidence-caption">{confidenceChange}% from last month</p>
+          <p className="stat-caption confidence-caption">
+            <ArrowUp size={10} strokeWidth={3} />
+            {confidenceChange}% from last month
+          </p>
         </div>
 
         <div className="divider" />
