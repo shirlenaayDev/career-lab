@@ -1,7 +1,7 @@
-import { Search, Bell, ChevronDown } from 'lucide-react';
+import { Search, Bell } from 'lucide-react';
 import './Topbar.css';
 
-function Topbar({ userName = 'User1', userRole = 'Student' }) {
+function Topbar({ userName = 'User1', actionButton }) {
   return (
     <div className="topbar">
       <div className="topbar-search">
@@ -13,18 +13,15 @@ function Topbar({ userName = 'User1', userRole = 'Student' }) {
         />
       </div>
 
+      {actionButton}
+
       <button className="topbar-notif-btn">
         <Bell size={20} />
         <span className="topbar-notif-dot" />
       </button>
 
-      <button className="topbar-user">
-        <div className="topbar-avatar">{userName.charAt(0)}</div>
-        <div className="topbar-user-text">
-          <p className="topbar-user-name">{userName}</p>
-          <p className="topbar-user-role">{userRole}</p>
-        </div>
-        <ChevronDown size={16} />
+      <button className="topbar-avatar-btn">
+        <span className="topbar-avatar">{userName.charAt(0)}</span>
       </button>
     </div>
   );
