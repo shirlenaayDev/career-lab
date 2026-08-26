@@ -1,7 +1,7 @@
 import { X, Compass, TrendingUp, Archive } from 'lucide-react';
 import './HowItWorksModal.css';
 
-const steps = [
+const defaultSteps = [
   {
     icon: Compass,
     title: 'Mulai dengan Eksplorasi',
@@ -19,7 +19,13 @@ const steps = [
   },
 ];
 
-function HowItWorksModal({ onClose }) {
+function HowItWorksModal({
+  onClose,
+  title = 'Bagaimana Cara Kerja Career Paths?',
+  subtitle = 'Setiap path adalah eksperimen yang bisa dievaluasi, bukan komitmen permanen.',
+  steps = defaultSteps,
+  buttonLabel = 'Mengerti',
+}) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -27,10 +33,8 @@ function HowItWorksModal({ onClose }) {
           <X size={20} />
         </button>
 
-        <h2 className="modal-title">Bagaimana Cara Kerja Career Paths?</h2>
-        <p className="modal-subtitle">
-          Setiap path adalah eksperimen yang bisa dievaluasi, bukan komitmen permanen.
-        </p>
+        <h2 className="modal-title">{title}</h2>
+        <p className="modal-subtitle">{subtitle}</p>
 
         <div className="modal-steps">
           {steps.map((step, i) => {
@@ -49,7 +53,7 @@ function HowItWorksModal({ onClose }) {
           })}
         </div>
 
-        <button className="modal-got-it-btn" onClick={onClose}>Mengerti</button>
+        <button className="modal-got-it-btn" onClick={onClose}>{buttonLabel}</button>
       </div>
     </div>
   );

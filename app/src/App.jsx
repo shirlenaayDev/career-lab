@@ -4,6 +4,7 @@ import { supabase } from './supabaseClient'
 import Login from './Login'
 import Dashboard from './pages/Dashboard'
 import CareerPaths from './pages/CareerPaths'
+import CareerExperiments from './pages/CareerExperiments'
 import './App.css'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard session={session} handleLogout={handleLogout} />} />
         <Route path="/career-paths" element={<CareerPaths />} />
+        <Route path="/career-experiments" element={<CareerExperiments />} />
       </Routes>
     </BrowserRouter>
   )

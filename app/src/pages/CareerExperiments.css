@@ -1,0 +1,85 @@
+.career-experiments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.career-experiments-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 0 0 10px 0;
+}
+
+.career-experiments-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
+  margin: 0;
+}
+
+.career-experiments-help-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid  #8267B4;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.career-experiments-help-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.career-experiments-panel {
+  background: rgba(255, 255, 255, var(--glass-bg-opacity, 0.04));
+  border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.08));
+  border-radius: 20px;
+  backdrop-filter: var(--glass-blur, blur(20px));
+  box-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.25));
+  padding: 28px;
+}
+
+.career-experiments-panel-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 0 0 20px 0;
+}
+
+.career-experiments-empty {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.career-experiments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 640px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.career-experiments-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.career-experiments-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}

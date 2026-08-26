@@ -1,0 +1,181 @@
+.experiment-card {
+  display: grid;
+  grid-template-columns: 1fr 200px 220px;
+  gap: 28px;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+/* --- Left: title, description, period --- */
+.experiment-card-main {
+  min-width: 0;
+  text-align: left;
+}
+
+.experiment-card-label-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #B9A3F5;
+  text-align: left;
+  margin: 0;
+}
+
+.experiment-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 10px 0;
+}
+
+.experiment-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 0;
+}
+
+.experiment-status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.status-planned {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.status-active {
+  background: rgba(9, 187, 200, 0.15);
+  color: #09BBC8;
+}
+
+.status-completed {
+  background: rgba(108, 124, 251, 0.15);
+  color: #6C7CFB;
+}
+
+.experiment-card-description {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+}
+
+.experiment-card-period {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: left;
+  margin: 0;
+}
+
+/* --- Middle: difficulty --- */
+.experiment-card-difficulty,
+.experiment-card-enjoyment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding-left: 24px;
+}
+
+.experiment-card-label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: left;
+  margin: 0;
+}
+
+.experiment-card-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 0;
+}
+
+.experiment-card-value-muted {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: left;
+  margin: 4px 0 0 0;
+}
+
+.experiment-difficulty-segments {
+  display: flex;
+  gap: 5px;
+}
+
+.difficulty-segment {
+  width: 24px;
+  height: 9px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.difficulty-segment.filled {
+  background: #F4C066;
+}
+
+/* --- Right: enjoyment + action --- */
+.experiment-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.star-filled {
+  fill: #80A1D4;
+  color: #80A1D4;
+}
+
+.star-empty {
+  fill: none;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.experiment-detail-btn {
+  margin-top: 6px;
+  background: linear-gradient(90deg, #405FFA 0%, #09BBC8 100%);
+  color: #fff;
+  font-family: 'DM Serif Text', serif;
+  font-weight: 400;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.experiment-detail-btn:hover {
+  opacity: 0.88;
+}
+
+/* --- Responsive stack on small screens --- */
+@media (max-width: 900px) {
+  .experiment-card {
+    grid-template-columns: 1fr;
+  }
+
+  .experiment-card-difficulty,
+  .experiment-card-enjoyment {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 12px;
+  }
+}
