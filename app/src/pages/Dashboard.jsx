@@ -63,7 +63,7 @@ function Dashboard({ session, handleLogout }) {
     <div className="app-layout">
       <Sidebar />
       <main className="main-content">
-        <Topbar userName="User1" userRole="Student" />
+        <Topbar userName="User1" userRole="Student" profileVariant="full" />        
         <DashboardHeader
           userName="User1"
           careerFocus="Business Analyst"

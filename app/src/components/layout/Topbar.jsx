@@ -1,7 +1,7 @@
-import { Search, Bell } from 'lucide-react';
+import { Search, Bell, ChevronDown } from 'lucide-react';
 import './Topbar.css';
 
-function Topbar({ userName = 'User1', actionButton }) {
+function Topbar({ userName = 'User1', userRole = 'Student', actionButton, profileVariant = 'compact' }) {
   return (
     <div className="topbar">
       <div className="topbar-search">
@@ -20,9 +20,20 @@ function Topbar({ userName = 'User1', actionButton }) {
         <span className="topbar-notif-dot" />
       </button>
 
-      <button className="topbar-avatar-btn">
-        <span className="topbar-avatar">{userName.charAt(0)}</span>
-      </button>
+      {profileVariant === 'full' ? (
+        <button className="topbar-user-full">
+          <div className="topbar-avatar">{userName.charAt(0)}</div>
+          <div className="topbar-user-text">
+            <p className="topbar-user-name">{userName}</p>
+            <p className="topbar-user-role">{userRole}</p>
+          </div>
+          <ChevronDown size={16} />
+        </button>
+      ) : (
+        <button className="topbar-avatar-btn">
+          <span className="topbar-avatar">{userName.charAt(0)}</span>
+        </button>
+      )}
     </div>
   );
 }

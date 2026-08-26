@@ -99,6 +99,10 @@
   gap: 10px;
 }
 
+.career-paths-sort-wrap {
+  position: relative;
+}
+
 .career-paths-sort {
   background: linear-gradient(90deg, #405FFA 0%, #FF0000 100%);
   color: white;
@@ -109,25 +113,44 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  appearance: none;
+  white-space: nowrap;
 }
 
-.career-paths-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+.sort-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(27, 27, 68, 0.95);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 200px;
+  z-index: 20;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-@media (max-width: 1200px) {
-  .career-paths-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.sort-menu-item {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-size: 13px;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-@media (max-width: 640px) {
-  .career-paths-grid {
-    grid-template-columns: 1fr;
-  }
+.sort-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sort-menu-item.active {
+  background: var(--accent-purple);
 }
 
 .career-paths-scroll-btn {
@@ -170,4 +193,12 @@
 .career-paths-scroll-wrap > * {
   flex: 0 0 300px;
   scroll-snap-align: start;
+}
+
+.career-paths-empty {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-display);
+  font-size: 14px;
+  padding: 40px 0;
+  text-align: center;
 }

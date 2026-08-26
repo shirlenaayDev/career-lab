@@ -1,16 +1,18 @@
-import { useRef } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { HelpCircle, Plus, Compass, BarChart3, Boxes, Palette, ChevronLeft, ChevronRight } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
 import Topbar from '../components/layout/Topbar';
 import CareerPathCard from '../components/career-paths/CareerPathCard';
+import HowItWorksModal from '../components/career-paths/HowItWorksModal';
 import './CareerPaths.css';
 
-const filterTabs = [
-  { label: 'Semua', count: null },
-  { label: 'Active', count: 1 },
-  { label: 'Exploring', count: 2 },
-  { label: 'On Hold', count: 1 },
-  { label: 'Archived', count: 0 },
+const filterTabs = ['Semua', 'Active', 'Exploring', 'On Hold', 'Archived'];
+
+const sortOptions = [
+  { value: 'terbaru', label: 'Terbaru' },
+  { value: 'nama-az', label: 'Nama A-Z' },
+  { value: 'confidence-tinggi', label: 'Confidence Tertinggi' },
+  { value: 'confidence-rendah', label: 'Confidence Terendah' },
 ];
 
 const paths = [
@@ -77,7 +79,13 @@ const paths = [
 ];
 
 function CareerPaths() {
+  const [activeFilter, setActiveFilter] = useState('Semua');
+  const [sortBy, setSortBy] = useState('terbaru');
+  const [showSortMenu, setShowSortMenu] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
   const scrollRef = useRef(null);
+
+  const currentSortLabel = sortOptions.find((o) => o.value === sortBy)?.label || 'Terbaru';
 
   function scroll(direction) {
     if (scrollRef.current) {
@@ -85,6 +93,25 @@ function CareerPaths() {
       scrollRef.current.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
     }
   }
+
+  function getCount(tab) {
+    if (tab === 'Semua') return null;
+    return paths.filter((p) => p.status === tab).length;
+  }
+
+  const displayedPaths = useMemo(() => {
+    let result = activeFilter === 'Semua' ? [...paths] : paths.filter((p) => p.status === activeFilter);
+
+    if (sortBy === 'nama-az') {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'confidence-tinggi') {
+      result.sort((a, b) => b.confidenceScore - a.confidenceScore);
+    } else if (sortBy === 'confidence-rendah') {
+      result.sort((a, b) => a.confidenceScore - b.confidenceScore);
+    }
+
+    return result;
+  }, [activeFilter, sortBy]);
 
   return (
     <div className="app-layout">
@@ -107,7 +134,7 @@ function CareerPaths() {
               Setiap path adalah eksperimen yang bisa dievaluasi, bukan komitmen permanen
             </p>
           </div>
-          <button className="career-paths-help-btn">
+          <button className="career-paths-help-btn" onClick={() => setShowHelpModal(true)}>
             <HelpCircle size={14} />
             Bagaimana cara kerja?
           </button>
@@ -115,17 +142,45 @@ function CareerPaths() {
 
         <div className="career-paths-toolbar">
           <div className="career-paths-filters">
-            {filterTabs.map((tab, i) => (
-              <button key={i} className={`filter-tab ${i === 0 ? 'active' : ''}`}>
-                {tab.label}{tab.count !== null ? ` (${tab.count})` : ''}
-              </button>
-            ))}
+            {filterTabs.map((tab) => {
+              const count = getCount(tab);
+              return (
+                <button
+                  key={tab}
+                  className={`filter-tab ${activeFilter === tab ? 'active' : ''}`}
+                  onClick={() => setActiveFilter(tab)}
+                >
+                  {tab}{count !== null ? ` (${count})` : ''}
+                </button>
+              );
+            })}
           </div>
 
           <div className="career-paths-actions">
-            <select className="career-paths-sort">
-              <option>Urutkan: Terbaru</option>
-            </select>
+            <div className="career-paths-sort-wrap">
+              <button
+                className="career-paths-sort"
+                onClick={() => setShowSortMenu(!showSortMenu)}
+              >
+                Urutkan: {currentSortLabel}
+              </button>
+              {showSortMenu && (
+                <div className="sort-menu">
+                  {sortOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      className={`sort-menu-item ${sortBy === option.value ? 'active' : ''}`}
+                      onClick={() => {
+                        setSortBy(option.value);
+                        setShowSortMenu(false);
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <button className="career-paths-scroll-btn" onClick={() => scroll('left')}>
               <ChevronLeft size={18} />
             </button>
@@ -135,11 +190,17 @@ function CareerPaths() {
           </div>
         </div>
 
-        <div className="career-paths-scroll-wrap" ref={scrollRef}>
-          {paths.map((path, i) => (
-            <CareerPathCard key={i} {...path} />
-          ))}
-        </div>
+        {displayedPaths.length === 0 ? (
+          <p className="career-paths-empty">Belum ada path di kategori ini.</p>
+        ) : (
+          <div className="career-paths-scroll-wrap" ref={scrollRef}>
+            {displayedPaths.map((path, i) => (
+              <CareerPathCard key={i} {...path} />
+            ))}
+          </div>
+        )}
+
+        {showHelpModal && <HowItWorksModal onClose={() => setShowHelpModal(false)} />}
       </main>
     </div>
   );

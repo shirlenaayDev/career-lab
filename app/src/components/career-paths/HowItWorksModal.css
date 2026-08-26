@@ -1,0 +1,114 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: #1B1B44;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 460px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: var(--text-white);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.modal-title {
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 32px 8px 0;
+  text-align: left;
+}
+
+.modal-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-display);
+  font-size: 13px;
+  margin: 0 0 20px 0;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.modal-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.modal-step-icon-wrap {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
+  background: rgba(158, 152, 251, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-step-title {
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  margin: 0;
+  text-align: left;
+}
+
+.modal-step-description {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-display);
+  font-size: 12px;
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.modal-got-it-btn {
+  width: 100%;
+  background: var(--accent-purple);
+  color: var(--text-white);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-got-it-btn:hover {
+  opacity: 0.9;
+}
