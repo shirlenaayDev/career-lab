@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, HelpCircle, FlaskConical, NotebookPen, GitBranch } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 import Sidebar from '../components/layout/Sidebar';
 import Topbar from '../components/layout/Topbar';
 import CareerExperimentCard from '../components/career-experiments/CareerExperimentCard';
 import HowItWorksModal from '../components/career-paths/HowItWorksModal';
+import NewExperimentModal from '../components/career-experiments/NewExperimentModal';
+import ExperimentDetailModal from '../components/career-experiments/ExperimentDetailModal';
 import './CareerExperiments.css';
 
 const experimentSteps = [
@@ -24,45 +27,60 @@ const experimentSteps = [
   },
 ];
 
-// Mock data — struktur mengikuti tabel career_experiments di Data Dictionary.
-// status TIDAK disimpan di DB, tapi di-derive dari period_start/period_end di CareerExperimentCard.
-const experiments = [
-  {
-    experimentTitle: 'Business Analyst',
-    description: 'Mengubah kebutuhan bisnis menjadi requirement dan dokumentasi yang bisa dieksekusi tim development.',
-    periodStart: '2026-01-15',
-    periodEnd: null,
-    enjoymentScore: 4,
-    difficulty: 3,
-  },
-  {
-    experimentTitle: 'Data Analyst',
-    description: 'Eksplorasi dataset penjualan untuk menemukan pola dan insight yang bisa mendukung keputusan bisnis.',
-    periodStart: '2026-02-01',
-    periodEnd: null,
-    enjoymentScore: 3,
-    difficulty: 4,
-  },
-  {
-    experimentTitle: 'UI/UX Designer',
-    description: 'Merancang wireframe dan prototype untuk fitur baru berdasarkan riset pengguna.',
-    periodStart: null,
-    periodEnd: null,
-    enjoymentScore: null,
-    difficulty: null,
-  },
-  {
-    experimentTitle: 'Product Manager',
-    description: 'Menyusun roadmap dan memprioritaskan backlog bersama tim lintas fungsi.',
-    periodStart: null,
-    periodEnd: null,
-    enjoymentScore: null,
-    difficulty: null,
-  },
-];
+// Map kolom snake_case dari Supabase ke props yang dipakai CareerExperimentCard
+function mapExperiment(row) {
+  return {
+    id: row.career_experiment_id,
+    experimentTitle: row.experiment_title,
+    description: row.description,
+    periodStart: row.period_start,
+    periodEnd: row.period_end,
+    enjoymentScore: row.enjoyment_score,
+    difficulty: row.difficulty,
+    continueDecision: row.continue_decision,
+    conclusion: row.conclusion,
+  };
+}
 
 function CareerExperiments() {
+  const [experiments, setExperiments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(null);
   const [showHelpModal, setShowHelpModal] = useState(false);
+  const [showNewExperimentModal, setShowNewExperimentModal] = useState(false);
+  const [selectedExperiment, setSelectedExperiment] = useState(null);
+
+  async function fetchExperiments() {
+    setLoading(true);
+    setLoadError(null);
+
+    const { data, error } = await supabase
+      .from('career_experiments')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      setLoadError('Gagal memuat data experiment.');
+      setLoading(false);
+      return;
+    }
+
+    setExperiments(data.map(mapExperiment));
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchExperiments();
+  }, []);
+
+  function handleCreated(newRow) {
+    setExperiments((prev) => [mapExperiment(newRow), ...prev]);
+  }
+
+  function handleUpdated(updatedRow) {
+    const mapped = mapExperiment(updatedRow);
+    setExperiments((prev) => prev.map((exp) => (exp.id === mapped.id ? mapped : exp)));
+  }
 
   return (
     <div className="app-layout">
@@ -71,7 +89,7 @@ function CareerExperiments() {
         <Topbar
           userName="User1"
           actionButton={
-            <button className="topbar-new-path-btn">
+            <button className="topbar-new-path-btn" onClick={() => setShowNewExperimentModal(true)}>
               <Plus size={16} />
               New Experiments
             </button>
@@ -94,12 +112,16 @@ function CareerExperiments() {
         <div className="career-experiments-panel">
           <h2 className="career-experiments-panel-title">My Career Experiments</h2>
 
-          {experiments.length === 0 ? (
+          {loading ? (
+            <p className="career-experiments-empty">Memuat experiment...</p>
+          ) : loadError ? (
+            <p className="career-experiments-empty">{loadError}</p>
+          ) : experiments.length === 0 ? (
             <p className="career-experiments-empty">Belum ada experiment yang dijalankan.</p>
           ) : (
             <div className="career-experiments-list">
-              {experiments.map((exp, i) => (
-                <CareerExperimentCard key={i} {...exp} />
+              {experiments.map((exp) => (
+                <CareerExperimentCard key={exp.id} {...exp} onViewDetail={setSelectedExperiment} />
               ))}
             </div>
           )}
@@ -111,6 +133,21 @@ function CareerExperiments() {
             title="Bagaimana Cara Kerja Career Experiments?"
             subtitle="Setiap experiment adalah cara mengukur cocok tidaknya sebuah career path lewat pengalaman nyata."
             steps={experimentSteps}
+          />
+        )}
+
+        {showNewExperimentModal && (
+          <NewExperimentModal
+            onClose={() => setShowNewExperimentModal(false)}
+            onCreated={handleCreated}
+          />
+        )}
+
+        {selectedExperiment && (
+          <ExperimentDetailModal
+            experiment={selectedExperiment}
+            onClose={() => setSelectedExperiment(null)}
+            onUpdated={handleUpdated}
           />
         )}
       </main>

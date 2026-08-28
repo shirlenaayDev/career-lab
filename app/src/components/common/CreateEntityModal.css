@@ -1,0 +1,134 @@
+.entity-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.entity-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.entity-form-label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.entity-form-input,
+.entity-form-textarea,
+.entity-form-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-size: 14px;
+  outline: none;
+}
+
+.entity-form-input:focus,
+.entity-form-textarea:focus,
+.entity-form-select:focus {
+  border-color: var(--accent-purple);
+}
+
+.entity-form-textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.entity-form-select {
+  cursor: pointer;
+}
+
+.entity-form-select option {
+  background: #1B1B44;
+}
+
+.entity-form-hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.entity-form-error {
+  font-size: 13px;
+  color: #F87171;
+  margin: 0;
+}
+
+.entity-form-field-row {
+  display: flex;
+  gap: 16px;
+}
+
+.entity-form-field-row .entity-form-field {
+  flex: 1;
+}
+
+.rating-picker {
+  display: flex;
+  gap: 6px;
+}
+
+.rating-picker-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.star-filled {
+  fill: #80A1D4;
+  color: #80A1D4;
+}
+
+.star-empty {
+  fill: none;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.difficulty-picker-segment {
+  width: 28px;
+  height: 12px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.difficulty-picker-segment.filled {
+  background: #F4C066;
+}
+
+.decision-toggle {
+  display: flex;
+  gap: 10px;
+}
+
+.decision-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.decision-btn.active {
+  background: rgba(108, 124, 251, 0.15);
+  border-color: var(--accent-purple);
+  color: #fff;
+}

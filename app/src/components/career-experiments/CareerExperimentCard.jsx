@@ -19,7 +19,7 @@ function formatPeriod(periodStart, periodEnd) {
   return `${start} - ${end}`;
 }
 
-function CareerExperimentCard({ experimentTitle, description, periodStart, periodEnd, enjoymentScore, difficulty }) {
+function CareerExperimentCard({ id, experimentTitle, description, periodStart, periodEnd, enjoymentScore, difficulty, continueDecision, conclusion, onViewDetail }) {
   const status = getStatus(periodStart, periodEnd);
   const hasData = enjoymentScore !== null && enjoymentScore !== undefined;
 
@@ -62,7 +62,12 @@ function CareerExperimentCard({ experimentTitle, description, periodStart, perio
             />
           ))}
         </div>
-        <button className="experiment-detail-btn">Lihat Detail</button>
+        <button
+          className="experiment-detail-btn"
+          onClick={() => onViewDetail({ id, experimentTitle, description, periodStart, periodEnd, enjoymentScore, difficulty, continueDecision, conclusion })}
+        >
+          Lihat Detail
+        </button>
       </div>
     </div>
   );
