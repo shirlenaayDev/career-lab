@@ -6,6 +6,7 @@ import Topbar from '../components/layout/Topbar';
 import CareerPathCard from '../components/career-paths/CareerPathCard';
 import HowItWorksModal from '../components/career-paths/HowItWorksModal';
 import NewPathModal from '../components/career-experiments/NewPathModal';
+import PathDetailModal from '../components/career-paths/PathDetailModal';
 import './CareerPaths.css';
 
 const filterTabs = ['Semua', 'Exploring', 'Focus', 'Achieved'];
@@ -38,6 +39,7 @@ function CareerPaths() {
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showNewPathModal, setShowNewPathModal] = useState(false);
+  const [selectedPath, setSelectedPath] = useState(null);
   const scrollRef = useRef(null);
 
   const currentSortLabel = sortOptions.find((o) => o.value === sortBy)?.label || 'Terbaru';
@@ -67,6 +69,11 @@ function CareerPaths() {
 
   function handleCreated(newRow) {
     setPaths((prev) => [mapPath(newRow), ...prev]);
+  }
+
+  function handleUpdated(updatedRow) {
+    const mapped = mapPath(updatedRow);
+    setPaths((prev) => prev.map((p) => (p.id === mapped.id ? mapped : p)));
   }
 
   function scroll(direction) {
@@ -181,7 +188,7 @@ function CareerPaths() {
         ) : (
           <div className="career-paths-scroll-wrap" ref={scrollRef}>
             {displayedPaths.map((path) => (
-              <CareerPathCard key={path.id} {...path} />
+              <CareerPathCard key={path.id} {...path} onExplore={setSelectedPath} />
             ))}
           </div>
         )}
@@ -192,6 +199,14 @@ function CareerPaths() {
           <NewPathModal
             onClose={() => setShowNewPathModal(false)}
             onCreated={handleCreated}
+          />
+        )}
+
+        {selectedPath && (
+          <PathDetailModal
+            path={selectedPath}
+            onClose={() => setSelectedPath(null)}
+            onUpdated={handleUpdated}
           />
         )}
       </main>

@@ -7,7 +7,7 @@ const statusColors = {
   Achieved: { color: '#4CD8C4', bg: 'rgba(76, 216, 196, 0.15)' },
 };
 
-function CareerPathCard({ name, description, why, status, priority, targetTimeline }) {
+function CareerPathCard({ id, name, description, why, status, priority, targetTimeline, onExplore }) {
   const accent = statusColors[status] || statusColors.Exploring;
 
   return (
@@ -28,7 +28,12 @@ function CareerPathCard({ name, description, why, status, priority, targetTimeli
         {targetTimeline && <span className="career-path-timeline">{targetTimeline}</span>}
       </div>
 
-      <button className="career-path-explore-btn">Explore Path</button>
+      <button
+        className="career-path-explore-btn"
+        onClick={() => onExplore({ id, name, description, why, status, priority, targetTimeline })}
+      >
+        Explore Path
+      </button>
     </div>
   );
 }
