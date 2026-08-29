@@ -5,6 +5,7 @@ import Login from './Login'
 import Dashboard from './pages/Dashboard'
 import CareerPaths from './pages/CareerPaths'
 import CareerExperiments from './pages/CareerExperiments'
+import WeeklyReflection from './pages/WeeklyReflection'
 import './App.css'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Dashboard session={session} handleLogout={handleLogout} />} />
         <Route path="/career-paths" element={<CareerPaths />} />
         <Route path="/career-experiments" element={<CareerExperiments />} />
+        <Route path="/weekly-reflection" element={<WeeklyReflection />} />
       </Routes>
     </BrowserRouter>
   )
