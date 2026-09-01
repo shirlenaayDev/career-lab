@@ -1,10 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import { Goal, ArrowUp } from 'lucide-react';
 import './DashboardHeader.css';
 
 function DashboardHeader({ userName, careerFocus, confidenceScore, confidenceChange, nextLearning, chapter, progress }) {
+  const navigate = useNavigate();
+
   return (
     <div className="dashboard-header">
-      <button className="view-path-btn">View Career Path</button>
+      <button className="view-path-btn" onClick={() => navigate('/career-paths')}>View Career Path</button>
 
       <div className="header-left">
         <p className="greeting">Good evening,</p>

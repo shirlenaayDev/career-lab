@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard'
 import CareerPaths from './pages/CareerPaths'
 import CareerExperiments from './pages/CareerExperiments'
 import WeeklyReflection from './pages/WeeklyReflection'
+import Projects from './pages/Projects'
+import ProjectDetail from './pages/ProjectDetail'
 import './App.css'
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
         <Route path="/career-paths" element={<CareerPaths />} />
         <Route path="/career-experiments" element={<CareerExperiments />} />
         <Route path="/weekly-reflection" element={<WeeklyReflection />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
       </Routes>
     </BrowserRouter>
   )

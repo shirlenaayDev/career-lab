@@ -1,0 +1,71 @@
+.project-card {
+  flex: 0 0 300px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.project-type-badge {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.project-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: 26px;
+  color: #fff;
+  text-align: left;
+  margin: 6px 0 0 0;
+}
+
+.project-card-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: left;
+  margin: 0;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.project-card-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #7247F6 0%, #432A90 100%);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.project-view-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #3B3664 0%, #405FFA 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.project-view-btn:hover {
+  opacity: 0.9;
+}

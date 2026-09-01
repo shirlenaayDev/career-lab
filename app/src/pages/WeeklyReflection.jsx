@@ -1,13 +1,32 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Plus, Flame, TrendingUp, NotebookPen, Target } from 'lucide-react';
+import { Plus, Flame, TrendingUp, NotebookPen, Target, HelpCircle } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import Sidebar from '../components/layout/Sidebar';
 import Topbar from '../components/layout/Topbar';
 import ReflectionCard from '../components/weekly-reflection/ReflectionCard';
 import NewReflectionModal from '../components/weekly-reflection/NewReflectionModal';
 import ReflectionDetailModal from '../components/weekly-reflection/ReflectionDetailModal';
+import HowItWorksModal from '../components/career-paths/HowItWorksModal';
 import '../pages/CareerPaths.css';
 import './WeeklyReflection.css';
+
+const reflectionSteps = [
+  {
+    icon: NotebookPen,
+    title: 'Refleksi Tiap Minggu',
+    description: 'Sisihkan waktu di akhir minggu buat nulis apa yang kamu kerjakan, tantangan, dan langkah selanjutnya.',
+  },
+  {
+    icon: Flame,
+    title: 'Jaga Konsistensi',
+    description: 'Streak dihitung dari seberapa rutin kamu reflection tiap minggu — makin konsisten, makin kelihatan polanya.',
+  },
+  {
+    icon: Target,
+    title: 'Pantau Progress',
+    description: 'Score & mood dari waktu ke waktu bantu kamu liat gimana perjalanan di career experiment yang lagi dijalanin.',
+  },
+];
 
 const filterTabs = ['Semua', 'Minggu ini', 'Bulan ini'];
 
@@ -59,6 +78,7 @@ function WeeklyReflection() {
   const [sortBy, setSortBy] = useState('terbaru');
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [showNewModal, setShowNewModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedReflection, setSelectedReflection] = useState(null);
 
   const currentSortLabel = sortOptions.find((o) => o.value === sortBy)?.label || 'Terbaru';
@@ -180,7 +200,13 @@ function WeeklyReflection() {
         />
 
         <div className="weekly-reflection-header">
-          <h1 className="weekly-reflection-title">Weekly Reflection</h1>
+          <div className="weekly-reflection-header-top">
+            <h1 className="weekly-reflection-title">Weekly Reflection</h1>
+            <button className="career-experiments-help-btn" onClick={() => setShowHelpModal(true)}>
+              <HelpCircle size={14} />
+              Bagaimana cara kerja?
+            </button>
+          </div>
           <p className="weekly-reflection-subtitle">
             Luangkan waktu sejenak untuk mereflekasi, belajar, dan bertumbuh setiap minggu.
           </p>
@@ -287,6 +313,15 @@ function WeeklyReflection() {
             reflection={selectedReflection}
             onClose={() => setSelectedReflection(null)}
             onUpdated={handleUpdated}
+          />
+        )}
+
+        {showHelpModal && (
+          <HowItWorksModal
+            onClose={() => setShowHelpModal(false)}
+            title="Bagaimana Cara Kerja Weekly Reflection?"
+            subtitle="Refleksi mingguan bantu kamu belajar dari pengalaman, bukan cuma jalanin experiment tanpa evaluasi."
+            steps={reflectionSteps}
           />
         )}
       </main>

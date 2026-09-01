@@ -3,9 +3,16 @@
   margin-bottom: 24px;
 }
 
+.weekly-reflection-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .weekly-reflection-title {
   font-family: 'DM Sans', sans-serif;
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 700;
   color: #fff;
   text-align: left;
@@ -65,11 +72,12 @@
 }
 
 .wr-stat-value-text {
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 1.25;
   max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  text-align: left;
 }
 
 .wr-stat-unit {
