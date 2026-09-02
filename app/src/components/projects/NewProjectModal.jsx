@@ -4,6 +4,7 @@ import CreateEntityModal from '../common/CreateEntityModal';
 import NewSkillModal from './NewSkillModal';
 
 const statusOptions = ['Planned', 'In Progress', 'Completed'];
+const projectTypeOptions = ['Personal', 'Academic', 'Organization'];
 
 function NewProjectModal({ onClose, onCreated }) {
   const [skills, setSkills] = useState([]);
@@ -94,8 +95,16 @@ function NewProjectModal({ onClose, onCreated }) {
       const rows = selectedSkillIds.map((skillId) => ({
         project_id: project.project_id,
         skill_id: skillId,
+        user_id: user.id,
       }));
-      await supabase.from('project_skills').insert(rows);
+      const { error: skillsError } = await supabase.from('project_skills').insert(rows);
+      if (skillsError) {
+        setIsSubmitting(false);
+        setError('Project tersimpan, tapi gagal nyimpen skill. Bisa ditambahin lagi dari halaman detail.');
+        onCreated(project);
+        onClose();
+        return;
+      }
     }
 
     setIsSubmitting(false);
@@ -140,14 +149,17 @@ function NewProjectModal({ onClose, onCreated }) {
         <div className="entity-form-field-row">
           <div className="entity-form-field">
             <label className="entity-form-label">Tipe Project</label>
-            <input
-              type="text"
+            <select
               name="project_type"
-              className="entity-form-input"
-              placeholder="Personal/Academic/dll"
+              className="entity-form-select"
               value={form.project_type}
               onChange={handleChange}
-            />
+            >
+              <option value="">Pilih tipe</option>
+              {projectTypeOptions.map((t) => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </select>
           </div>
           <div className="entity-form-field">
             <label className="entity-form-label">Role</label>

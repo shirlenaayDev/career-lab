@@ -10,6 +10,7 @@ import '../components/career-paths/HowItWorksModal.css';
 import './ProjectDetail.css';
 
 const statusOptions = ['Planned', 'In Progress', 'Completed'];
+const projectTypeOptions = ['Personal', 'Academic', 'Organization'];
 
 function ProjectDetail() {
   const { id } = useParams();
@@ -121,11 +122,18 @@ function ProjectDetail() {
 
     // Sinkronkan project_skills: hapus semua, insert ulang sesuai pilihan saat ini.
     // Simpel & aman buat ukuran data kecil, meski bukan yang paling efisien.
+    const { data: { user } } = await supabase.auth.getUser();
+
     await supabase.from('project_skills').delete().eq('project_id', id);
     if (selectedSkillIds.length > 0) {
-      await supabase.from('project_skills').insert(
-        selectedSkillIds.map((skillId) => ({ project_id: id, skill_id: skillId }))
+      const { error: skillsError } = await supabase.from('project_skills').insert(
+        selectedSkillIds.map((skillId) => ({ project_id: id, skill_id: skillId, user_id: user.id }))
       );
+      if (skillsError) {
+        setIsSaving(false);
+        setSaveError('Project tersimpan, tapi gagal update skill. Coba simpan lagi.');
+        return;
+      }
     }
 
     setIsSaving(false);
@@ -245,13 +253,17 @@ function ProjectDetail() {
             <div className="entity-form-field-row">
               <div className="entity-form-field">
                 <label className="entity-form-label">Tipe Project</label>
-                <input
-                  type="text"
+                <select
                   name="project_type"
-                  className="entity-form-input"
+                  className="entity-form-select"
                   value={form.project_type}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">Pilih tipe</option>
+                  {projectTypeOptions.map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                  ))}
+                </select>
               </div>
               <div className="entity-form-field">
                 <label className="entity-form-label">Role</label>

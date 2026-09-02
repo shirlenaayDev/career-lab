@@ -25,7 +25,7 @@ function ProjectCard({ id, name, role, projectType, skillNames = [] }) {
 
       {skillNames.length > 0 && (
         <div className="project-card-tags">
-          {skillNames.map((tag, i) => (
+          {skillNames.slice(0, 3).map((tag, i) => (
             <span key={i} className="project-card-tag">{tag}</span>
           ))}
         </div>

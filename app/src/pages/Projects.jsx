@@ -27,6 +27,8 @@ const projectSteps = [
   },
 ];
 
+const filterTabs = ['Semua', 'Personal', 'Organization', 'Academic'];
+
 function mapProject(row, skillsByProject) {
   return {
     id: row.project_id,
@@ -88,11 +90,6 @@ function Projects() {
   function handleCreated(newRow) {
     setProjects((prev) => [mapProject(newRow, {}), ...prev]);
   }
-
-  const filterTabs = useMemo(() => {
-    const types = [...new Set(projects.map((p) => p.projectType).filter(Boolean))];
-    return ['Semua', ...types];
-  }, [projects]);
 
   const displayedProjects = useMemo(() => {
     let result = [...projects];
