@@ -1,0 +1,85 @@
+.skill-card {
+  flex: 0 0 240px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.skill-type-badge {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.skill-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 4px 0 0 0;
+}
+
+.skill-level-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-level-segments {
+  display: flex;
+  gap: 4px;
+}
+
+.skill-level-segment {
+  width: 18px;
+  height: 7px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.skill-level-segment.filled {
+  background: #6C7CFB;
+}
+
+.skill-level-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.skill-level-empty {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}
+
+.skill-last-practiced {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.skill-detail-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #3B3664 0%, #405FFA 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.skill-detail-btn:hover {
+  opacity: 0.9;
+}

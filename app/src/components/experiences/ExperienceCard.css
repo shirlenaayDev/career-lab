@@ -1,0 +1,76 @@
+.experience-card {
+  flex: 0 0 280px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.experience-type-badge {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.experience-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 6px 0 0 0;
+}
+
+.experience-card-org {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: left;
+  margin: 0;
+}
+
+.experience-card-period {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.experience-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.experience-card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #7247F6 0%, #432A90 100%);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.experience-detail-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #3B3664 0%, #405FFA 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.experience-detail-btn:hover {
+  opacity: 0.9;
+}

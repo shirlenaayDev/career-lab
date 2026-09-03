@@ -8,6 +8,8 @@ import CareerExperiments from './pages/CareerExperiments'
 import WeeklyReflection from './pages/WeeklyReflection'
 import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
+import Skills from './pages/Skills'
+import Experiences from './pages/Experiences'
 import './App.css'
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
         <Route path="/weekly-reflection" element={<WeeklyReflection />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/experiences" element={<Experiences />} />
       </Routes>
     </BrowserRouter>
   )

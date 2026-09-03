@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import CreateEntityModal from '../common/CreateEntityModal';
 
-const proficiencyOptions = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+export const categoryOptions = ['Technical', 'Soft Skill', 'Tool', 'Language', 'Other'];
+export const proficiencyOptions = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
 
 function NewSkillModal({ onClose, onCreated }) {
   const [form, setForm] = useState({
@@ -36,7 +37,7 @@ function NewSkillModal({ onClose, onCreated }) {
       .insert({
         user_id: user.id,
         name: form.name.trim(),
-        category: form.category.trim() || null,
+        category: form.category || null,
         proficiency_level: form.proficiency_level || null,
       })
       .select()
@@ -75,15 +76,18 @@ function NewSkillModal({ onClose, onCreated }) {
       </div>
 
       <div className="entity-form-field">
-        <label className="entity-form-label">Kategori (opsional)</label>
-        <input
-          type="text"
+        <label className="entity-form-label">Kategori</label>
+        <select
           name="category"
-          className="entity-form-input"
-          placeholder="Contoh: Technical / Soft Skill"
+          className="entity-form-select"
           value={form.category}
           onChange={handleChange}
-        />
+        >
+          <option value="">Pilih kategori</option>
+          {categoryOptions.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
       </div>
 
       <div className="entity-form-field">

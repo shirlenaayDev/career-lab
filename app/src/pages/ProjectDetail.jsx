@@ -4,7 +4,7 @@ import { ArrowLeft, Plus, X, ExternalLink } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import Sidebar from '../components/layout/Sidebar';
 import Topbar from '../components/layout/Topbar';
-import NewSkillModal from '../components/projects/NewSkillModal';
+import NewSkillModal from '../components/skills/NewSkillModal';
 import '../components/common/CreateEntityModal.css';
 import '../components/career-paths/HowItWorksModal.css';
 import './ProjectDetail.css';

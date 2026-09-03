@@ -1,0 +1,78 @@
+.experiences-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.experiences-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 0 0 10px 0;
+}
+
+.experiences-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
+  margin: 0;
+}
+
+.experiences-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.experiences-search {
+  position: relative;
+  flex: 1;
+  max-width: 280px;
+}
+
+.experiences-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.experiences-search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 10px 14px 10px 40px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.experiences-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.experiences-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.experiences-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.experiences-empty {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 0;
+}
