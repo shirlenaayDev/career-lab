@@ -24,16 +24,15 @@
 
 .experiences-toolbar {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
-  flex-wrap: wrap;
 }
 
 .experiences-search {
   position: relative;
-  flex: 1;
-  max-width: 280px;
+  width: 100%;
+  max-width: 640px;
 }
 
 .experiences-search-icon {
@@ -65,9 +64,15 @@
 }
 
 .experiences-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .experiences-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .experiences-empty {

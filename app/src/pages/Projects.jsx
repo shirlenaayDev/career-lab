@@ -91,6 +91,53 @@ function Projects() {
     setProjects((prev) => [mapProject(newRow, {}), ...prev]);
   }
 
+  async function handleDelete(id) {
+    if (!window.confirm('Hapus project ini beserta semua link yang nempel? Tindakan ini nggak bisa dibatalkan.')) return;
+    await supabase.from('project_skills').delete().eq('project_id', id);
+    await supabase.from('project_links').delete().eq('project_id', id);
+    const { error } = await supabase.from('projects').delete().eq('project_id', id);
+    if (!error) setProjects((prev) => prev.filter((p) => p.id !== id));
+  }
+
+  async function handleDuplicate(id) {
+    const original = projects.find((p) => p.id === id);
+    if (!original) return;
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { data: newProject, error } = await supabase
+      .from('projects')
+      .insert({
+        user_id: user.id,
+        name: `${original.name} (copy)`,
+        description: original.description,
+        project_type: original.projectType,
+        role: original.role,
+        semester: original.semester,
+        status: original.status,
+        start_date: original.startDate,
+        end_date: original.endDate,
+        notes: original.notes,
+      })
+      .select()
+      .single();
+
+    if (error) return;
+
+    const { data: skillRows } = await supabase
+      .from('project_skills')
+      .select('skill_id')
+      .eq('project_id', id);
+
+    if (skillRows?.length) {
+      await supabase.from('project_skills').insert(
+        skillRows.map((r) => ({ project_id: newProject.project_id, skill_id: r.skill_id, user_id: user.id }))
+      );
+    }
+
+    fetchProjects();
+  }
+
   const displayedProjects = useMemo(() => {
     let result = [...projects];
 
@@ -169,7 +216,7 @@ function Projects() {
         ) : (
           <div className="projects-grid">
             {displayedProjects.map((p) => (
-              <ProjectCard key={p.id} {...p} />
+              <ProjectCard key={p.id} {...p} onDelete={handleDelete} onDuplicate={handleDuplicate} />
             ))}
           </div>
         )}

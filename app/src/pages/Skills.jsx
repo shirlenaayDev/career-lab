@@ -84,6 +84,37 @@ function Skills() {
     setSkills((prev) => prev.map((s) => (s.id === mapped.id ? mapped : s)));
   }
 
+  async function handleDelete(id) {
+    if (!window.confirm('Hapus skill ini? Ini juga bakal ngelepas skill dari semua project/experience yang nempel.')) return;
+    await supabase.from('project_skills').delete().eq('skill_id', id);
+    await supabase.from('experience_skills').delete().eq('skill_id', id);
+    const { error } = await supabase.from('skills').delete().eq('skill_id', id);
+    if (!error) setSkills((prev) => prev.filter((s) => s.id !== id));
+  }
+
+  async function handleDuplicate(id) {
+    const original = skills.find((s) => s.id === id);
+    if (!original) return;
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { data: newSkill, error } = await supabase
+      .from('skills')
+      .insert({
+        user_id: user.id,
+        name: `${original.name} (copy)`,
+        category: original.category,
+        description: original.description,
+        proficiency_level: original.proficiencyLevel,
+        last_practiced: original.lastPracticed,
+        notes: original.notes,
+      })
+      .select()
+      .single();
+
+    if (!error) setSkills((prev) => [mapSkill(newSkill), ...prev]);
+  }
+
   const displayedSkills = useMemo(() => {
     let result = [...skills];
 
@@ -158,7 +189,7 @@ function Skills() {
         ) : (
           <div className="skills-grid">
             {displayedSkills.map((s) => (
-              <SkillCard key={s.id} {...s} onViewDetail={setSelectedSkill} />
+              <SkillCard key={s.id} {...s} onViewDetail={setSelectedSkill} onDelete={handleDelete} onDuplicate={handleDuplicate} />
             ))}
           </div>
         )}

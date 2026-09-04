@@ -97,6 +97,52 @@ function Experiences() {
     fetchExperiences();
   }
 
+  async function handleDelete(id) {
+    if (!window.confirm('Hapus experience ini? Tindakan ini nggak bisa dibatalkan.')) return;
+    await supabase.from('experience_skills').delete().eq('experience_id', id);
+    const { error } = await supabase.from('experiences').delete().eq('experience_id', id);
+    if (!error) setExperiences((prev) => prev.filter((e) => e.id !== id));
+  }
+
+  async function handleDuplicate(id) {
+    const original = experiences.find((e) => e.id === id);
+    if (!original) return;
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { data: newExperience, error } = await supabase
+      .from('experiences')
+      .insert({
+        user_id: user.id,
+        name: `${original.name} (copy)`,
+        category: original.category,
+        organization: original.organization,
+        role: original.role,
+        start_date: original.startDate,
+        end_date: original.endDate,
+        description: original.description,
+        achievement: original.achievement,
+        notes: original.notes,
+      })
+      .select()
+      .single();
+
+    if (error) return;
+
+    const { data: skillRows } = await supabase
+      .from('experience_skills')
+      .select('skill_id')
+      .eq('experience_id', id);
+
+    if (skillRows?.length) {
+      await supabase.from('experience_skills').insert(
+        skillRows.map((r) => ({ experience_id: newExperience.experience_id, skill_id: r.skill_id, user_id: user.id }))
+      );
+    }
+
+    fetchExperiences();
+  }
+
   const displayedExperiences = useMemo(() => {
     let result = [...experiences];
 
@@ -175,7 +221,7 @@ function Experiences() {
         ) : (
           <div className="experiences-grid">
             {displayedExperiences.map((e) => (
-              <ExperienceCard key={e.id} {...e} onViewDetail={setSelectedExperience} />
+              <ExperienceCard key={e.id} {...e} onViewDetail={setSelectedExperience} onDelete={handleDelete} onDuplicate={handleDuplicate} />
             ))}
           </div>
         )}

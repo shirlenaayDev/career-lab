@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MoreVertical } from 'lucide-react';
 import './ProjectCard.css';
 
 const typeColors = {
@@ -8,12 +10,26 @@ const typeColors = {
   Freelance: { color: '#80A1D4', bg: 'rgba(128, 161, 212, 0.15)' },
 };
 
-function ProjectCard({ id, name, role, projectType, skillNames = [] }) {
+function ProjectCard({ id, name, role, projectType, skillNames = [], onDelete, onDuplicate }) {
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
   const accent = typeColors[projectType] || { color: '#9E98FB', bg: 'rgba(158, 152, 251, 0.15)' };
 
   return (
     <div className="project-card">
+      <div className="card-menu-wrap">
+        <button className="card-menu-btn" onClick={() => setShowMenu((v) => !v)}>
+          <MoreVertical size={16} />
+        </button>
+        {showMenu && (
+          <div className="card-menu" onMouseLeave={() => setShowMenu(false)}>
+            <button onClick={() => { setShowMenu(false); navigate(`/projects/${id}`); }}>Edit</button>
+            <button onClick={() => { setShowMenu(false); onDuplicate(id); }}>Duplikat</button>
+            <button className="card-menu-danger" onClick={() => { setShowMenu(false); onDelete(id); }}>Hapus</button>
+          </div>
+        )}
+      </div>
+
       {projectType && (
         <span className="project-type-badge" style={{ background: accent.bg, color: accent.color }}>
           {projectType}

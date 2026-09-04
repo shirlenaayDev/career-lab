@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { MoreVertical } from 'lucide-react';
 import './SkillCard.css';
 
 const categoryColors = {
@@ -15,12 +17,28 @@ function formatLastPracticed(date) {
   return new Date(date).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
 }
 
-function SkillCard({ name, category, proficiencyLevel, lastPracticed, onViewDetail, ...rest }) {
+function SkillCard({ name, category, proficiencyLevel, lastPracticed, onViewDetail, onDelete, onDuplicate, ...rest }) {
   const accent = categoryColors[category] || categoryColors.Other;
   const levelIndex = proficiencyLevels.indexOf(proficiencyLevel);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const fullData = { name, category, proficiencyLevel, lastPracticed, ...rest };
 
   return (
     <div className="skill-card">
+      <div className="card-menu-wrap">
+        <button className="card-menu-btn" onClick={() => setShowMenu((v) => !v)}>
+          <MoreVertical size={16} />
+        </button>
+        {showMenu && (
+          <div className="card-menu" onMouseLeave={() => setShowMenu(false)}>
+            <button onClick={() => { setShowMenu(false); onViewDetail(fullData); }}>Edit</button>
+            <button onClick={() => { setShowMenu(false); onDuplicate(rest.id); }}>Duplikat</button>
+            <button className="card-menu-danger" onClick={() => { setShowMenu(false); onDelete(rest.id); }}>Hapus</button>
+          </div>
+        )}
+      </div>
+
       {category && (
         <span className="skill-type-badge" style={{ background: accent.bg, color: accent.color }}>
           {category}
@@ -46,10 +64,7 @@ function SkillCard({ name, category, proficiencyLevel, lastPracticed, onViewDeta
         <p className="skill-last-practiced">Terakhir dipakai: {formatLastPracticed(lastPracticed)}</p>
       )}
 
-      <button
-        className="skill-detail-btn"
-        onClick={() => onViewDetail({ name, category, proficiencyLevel, lastPracticed, ...rest })}
-      >
+      <button className="skill-detail-btn" onClick={() => onViewDetail(fullData)}>
         Lihat Detail
       </button>
     </div>

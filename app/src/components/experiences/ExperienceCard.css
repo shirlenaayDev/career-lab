@@ -1,5 +1,8 @@
+@import '../CardMenu.css';
+
 .experience-card {
-  flex: 0 0 280px;
+  position: relative;
+  width: 100%;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -43,10 +46,16 @@
 
 .experience-card-tags {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 6px;
   margin-top: auto;
   padding-top: 6px;
+  scrollbar-width: none;
+}
+
+.experience-card-tags::-webkit-scrollbar {
+  display: none;
 }
 
 .experience-card-tag {
@@ -56,6 +65,8 @@
   background: linear-gradient(90deg, #7247F6 0%, #432A90 100%);
   border-radius: 999px;
   padding: 4px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .experience-detail-btn {

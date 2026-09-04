@@ -1,4 +1,7 @@
+@import '../CardMenu.css';
+
 .project-card {
+  position: relative;
   flex: 0 0 300px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -21,7 +24,7 @@
 .project-card-title {
   font-family: 'DM Serif Display', serif;
   font-weight: 400;
-  font-size: 30px;
+  font-size: 26px;
   color: #fff;
   text-align: left;
   margin: 6px 0 0 0;
@@ -29,7 +32,7 @@
 
 .project-card-role {
   font-family: 'DM Mono', monospace;
-  font-size: 14.5px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
   text-align: left;
   margin: 0;

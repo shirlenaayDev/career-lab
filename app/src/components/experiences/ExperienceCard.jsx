@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { MoreVertical } from 'lucide-react';
 import './ExperienceCard.css';
 
 const categoryColors = {
@@ -15,12 +16,28 @@ function formatPeriod(startDate, endDate) {
   return endDate ? `${fmt(startDate)} - ${fmt(endDate)}` : `${fmt(startDate)} - Sekarang`;
 }
 
-function ExperienceCard({ id, name, category, organization, role, startDate, endDate, skillNames = [], onViewDetail, ...rest }) {
+function ExperienceCard({ id, name, category, organization, role, startDate, endDate, skillNames = [], onViewDetail, onDelete, onDuplicate, ...rest }) {
   const accent = categoryColors[category] || categoryColors.Other;
   const period = formatPeriod(startDate, endDate);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const fullData = { id, name, category, organization, role, startDate, endDate, skillNames, ...rest };
 
   return (
     <div className="experience-card">
+      <div className="card-menu-wrap">
+        <button className="card-menu-btn" onClick={() => setShowMenu((v) => !v)}>
+          <MoreVertical size={16} />
+        </button>
+        {showMenu && (
+          <div className="card-menu" onMouseLeave={() => setShowMenu(false)}>
+            <button onClick={() => { setShowMenu(false); onViewDetail(fullData); }}>Edit</button>
+            <button onClick={() => { setShowMenu(false); onDuplicate(id); }}>Duplikat</button>
+            <button className="card-menu-danger" onClick={() => { setShowMenu(false); onDelete(id); }}>Hapus</button>
+          </div>
+        )}
+      </div>
+
       {category && (
         <span className="experience-type-badge" style={{ background: accent.bg, color: accent.color }}>
           {category}
@@ -41,10 +58,7 @@ function ExperienceCard({ id, name, category, organization, role, startDate, end
         </div>
       )}
 
-      <button
-        className="experience-detail-btn"
-        onClick={() => onViewDetail({ id, name, category, organization, role, startDate, endDate, skillNames, ...rest })}
-      >
+      <button className="experience-detail-btn" onClick={() => onViewDetail(fullData)}>
         Lihat Detail
       </button>
     </div>
