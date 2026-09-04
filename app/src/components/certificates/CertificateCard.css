@@ -1,0 +1,129 @@
+@import '../CardMenu.css';
+
+.certificate-card {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.certificate-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.certificate-verify-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.certificate-verify-badge.verified {
+  color: #4CD8C4;
+  background: rgba(76, 216, 196, 0.15);
+}
+
+.certificate-expired-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #F87171;
+  background: rgba(248, 113, 113, 0.15);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.certificate-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 6px 0 0 0;
+}
+
+.certificate-card-provider {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: left;
+  margin: 0;
+}
+
+.certificate-card-date {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.certificate-card-tags {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  scrollbar-width: none;
+}
+
+.certificate-card-tags::-webkit-scrollbar {
+  display: none;
+}
+
+.certificate-card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #7247F6 0%, #432A90 100%);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.certificate-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.certificate-verify-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #80A1D4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.certificate-detail-btn {
+  flex: 1;
+  background: linear-gradient(90deg, #3B3664 0%, #405FFA 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.certificate-detail-btn:hover {
+  opacity: 0.9;
+}

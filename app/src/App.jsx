@@ -10,6 +10,8 @@ import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
 import Skills from './pages/Skills'
 import Experiences from './pages/Experiences'
+import Learning from './pages/Learning'
+import Certificates from './pages/Certificates'
 import './App.css'
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
         <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/skills" element={<Skills />} />
         <Route path="/experiences" element={<Experiences />} />
+        <Route path="/learning" element={<Learning />} />
+        <Route path="/certificates" element={<Certificates />} />
       </Routes>
     </BrowserRouter>
   )
