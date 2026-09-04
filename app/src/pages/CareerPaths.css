@@ -46,14 +46,15 @@
 .career-paths-help-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.04);
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid #8267B4;
   color: var(--text-white);
-  border-radius: 20px;
-  padding: 8px 14px;
+  border-radius: 10px;
+  padding: 10px 16px;
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
 }
