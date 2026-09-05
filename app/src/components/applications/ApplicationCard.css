@@ -1,0 +1,82 @@
+@import '../CardMenu.css';
+
+.application-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.application-card.status-applied {
+  background: rgba(108, 124, 251, 0.1);
+  border-color: rgba(108, 124, 251, 0.3);
+}
+
+.application-card.status-interview {
+  background: rgba(244, 192, 102, 0.1);
+  border-color: rgba(244, 192, 102, 0.3);
+}
+
+.application-card.status-offer {
+  background: rgba(76, 216, 196, 0.1);
+  border-color: rgba(76, 216, 196, 0.3);
+}
+
+.application-card.status-rejected {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.application-card-company {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  padding-right: 24px;
+}
+
+.application-card-position {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.application-card-path {
+  font-size: 11px;
+  font-weight: 600;
+  color: #80A1D4;
+  margin: 2px 0 0 0;
+}
+
+.application-card-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 6px 0 0 0;
+}
+
+.application-detail-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-radius: 8px;
+  padding: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.application-detail-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

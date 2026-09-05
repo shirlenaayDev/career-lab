@@ -1,0 +1,103 @@
+@import '../CardMenu.css';
+
+.story-card {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.story-status-badge {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.story-status-badge.draft {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.story-status-badge.complete {
+  color: #4CD8C4;
+  background: rgba(76, 216, 196, 0.15);
+}
+
+.story-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-align: left;
+  margin: 6px 0 0 0;
+}
+
+.story-card-company {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: left;
+  margin: 0;
+}
+
+.story-card-snippet {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 4px 0 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.story-card-tags {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  scrollbar-width: none;
+}
+
+.story-card-tags::-webkit-scrollbar {
+  display: none;
+}
+
+.story-card-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #7247F6 0%, #432A90 100%);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.story-detail-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #3B3664 0%, #405FFA 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.story-detail-btn:hover {
+  opacity: 0.9;
+}

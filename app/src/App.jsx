@@ -12,6 +12,8 @@ import Skills from './pages/Skills'
 import Experiences from './pages/Experiences'
 import Learning from './pages/Learning'
 import Certificates from './pages/Certificates'
+import Applications from './pages/Applications'
+import InterviewStories from './pages/InterviewStories'
 import './App.css'
 
 function App() {
@@ -51,6 +53,8 @@ function App() {
         <Route path="/experiences" element={<Experiences />} />
         <Route path="/learning" element={<Learning />} />
         <Route path="/certificates" element={<Certificates />} />
+        <Route path="/applications" element={<Applications />} />
+        <Route path="/interview-stories" element={<InterviewStories />} />
       </Routes>
     </BrowserRouter>
   )
