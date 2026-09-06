@@ -41,6 +41,42 @@
   gap: 4px;
 }
 
+.skill-growth-period-wrap {
+  position: relative;
+}
+
+.skill-growth-period-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: rgba(27, 27, 68, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 4px;
+  min-width: 140px;
+  z-index: 20;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-growth-period-menu button {
+  background: none;
+  border: none;
+  color: var(--text-white);
+  font-family: var(--font-display);
+  font-size: 12px;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.skill-growth-period-menu button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .skill-growth-chart {
   width: 100%;
 }
