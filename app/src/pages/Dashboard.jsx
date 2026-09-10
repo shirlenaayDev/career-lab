@@ -9,6 +9,7 @@ import ProjectProgress from '../components/dashboard/ProjectProgress';
 import UpcomingApplication from '../components/dashboard/UpcomingApplication';
 import WeeklyReflectionSummary from '../components/dashboard/WeeklyReflectionSummary';
 import SkillGrowth from '../components/dashboard/SkillGrowth';
+import ReminderBanner from '../components/dashboard/ReminderBanner';
 
 const moodScale = { Buruk: 1, Kurang: 2, Biasa: 3, Baik: 4, Semangat: 5 };
 
@@ -19,6 +20,7 @@ function daysAgo(dateStr) {
 function Dashboard({ session, handleLogout }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
+  const [reminderEnabled, setReminderEnabled] = useState(true);
 
   useEffect(() => {
     async function fetchAll() {
@@ -30,6 +32,7 @@ function Dashboard({ session, handleLogout }) {
         { data: applications },
         { data: reflections },
         { data: learningItems },
+        { data: { user } },
       ] = await Promise.all([
         supabase.from('career_paths').select('*'),
         supabase.from('projects').select('*'),
@@ -38,7 +41,10 @@ function Dashboard({ session, handleLogout }) {
         supabase.from('applications').select('*'),
         supabase.from('weekly_reflections').select('*'),
         supabase.from('learning').select('*'),
+        supabase.auth.getUser(),
       ]);
+
+      setReminderEnabled(user?.user_metadata?.reminder_enabled ?? true);
 
       setData({
         careerPaths: careerPaths || [],
@@ -68,6 +74,16 @@ function Dashboard({ session, handleLogout }) {
   }
 
   const { careerPaths, projects, skills, experiments, applications, reflections, learningItems } = data;
+
+  // ===== Reminder Banner =====
+  const sortedReflections = [...reflections].sort(
+    (a, b) => new Date(b.week_start_date || b.created_at) - new Date(a.week_start_date || a.created_at)
+  );
+  const lastReflection = sortedReflections[0];
+  const daysSinceReflection = lastReflection
+    ? Math.floor(daysAgo(lastReflection.week_start_date || lastReflection.created_at))
+    : null;
+  const showReminder = reminderEnabled && (daysSinceReflection === null || daysSinceReflection >= 7);
 
   // ===== DashboardHeader =====
   const focusPath = careerPaths.find((p) => p.status === 'Focus');
@@ -165,6 +181,9 @@ function Dashboard({ session, handleLogout }) {
       <Sidebar />
       <main className="main-content">
         <Topbar userName="User1" userRole="Student" profileVariant="full" />
+
+        {showReminder && <ReminderBanner daysSince={daysSinceReflection} />}
+
         <DashboardHeader
           userName="User1"
           careerFocus={focusPath?.name}

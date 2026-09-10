@@ -14,6 +14,7 @@ import Learning from './pages/Learning'
 import Certificates from './pages/Certificates'
 import Applications from './pages/Applications'
 import InterviewStories from './pages/InterviewStories'
+import Settings from './pages/Settings'
 import './App.css'
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
         <Route path="/certificates" element={<Certificates />} />
         <Route path="/applications" element={<Applications />} />
         <Route path="/interview-stories" element={<InterviewStories />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   )
