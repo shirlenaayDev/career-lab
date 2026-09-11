@@ -1,4 +1,4 @@
-import { NotebookPen, CheckCircle2, FlaskConical, Sparkles } from 'lucide-react';
+import { NotebookPen, CheckCircle2, FlaskConical, Sparkles, BookOpen } from 'lucide-react';
 import './ActivityFeed.css';
 
 const iconMap = {
@@ -6,6 +6,7 @@ const iconMap = {
   Project: { icon: CheckCircle2, color: '#88CEFB' },
   Experiment: { icon: FlaskConical, color: '#F4C066' },
   Skill: { icon: Sparkles, color: '#4CD8C4' },
+  Learning: { icon: BookOpen, color: '#9E98FB' },
 };
 
 function ActivityFeed({ activities }) {

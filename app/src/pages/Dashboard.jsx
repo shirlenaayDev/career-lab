@@ -91,9 +91,16 @@ function Dashboard({ session, handleLogout }) {
   const successRate = decidedExperiments.length
     ? Math.round((decidedExperiments.filter((e) => e.continue_decision === true).length / decidedExperiments.length) * 100)
     : null;
-  const activeLearning = learningItems
+
+  // Next Learning: prioritaskan "In Progress", fallback ke "Not Started" paling baru
+  // kalau belum ada yang lagi dijalanin.
+  const inProgressLearning = learningItems
     .filter((l) => l.status === 'In Progress')
     .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))[0];
+  const notStartedLearning = learningItems
+    .filter((l) => l.status === 'Not Started')
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+  const activeLearning = inProgressLearning || notStartedLearning;
 
   // ===== StatCards =====
   const activeCareerPaths = careerPaths.filter((p) => p.status !== 'Achieved').length;
@@ -140,6 +147,12 @@ function Dashboard({ session, handleLogout }) {
       subtitle: s.category || '',
       tag: 'Skill',
       createdAt: s.created_at,
+    })),
+    ...learningItems.map((l) => ({
+      title: `Mulai belajar: ${l.title}`,
+      subtitle: l.platform || l.learning_type || '',
+      tag: 'Learning',
+      createdAt: l.created_at,
     })),
   ]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
