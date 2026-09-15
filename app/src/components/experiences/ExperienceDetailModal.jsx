@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { X, Plus } from 'lucide-react';
 import { supabase } from '../../supabaseClient';
 import CreateEntityModal from '../common/CreateEntityModal';
 import NewSkillModal from '../skills/NewSkillModal';
@@ -8,6 +9,9 @@ function ExperienceDetailModal({ experience, onClose, onUpdated }) {
   const [skills, setSkills] = useState([]);
   const [selectedSkillIds, setSelectedSkillIds] = useState([]);
   const [showNewSkillModal, setShowNewSkillModal] = useState(false);
+  const [evidenceList, setEvidenceList] = useState([]);
+  const [newEvidence, setNewEvidence] = useState({ file_name: '', url: '' });
+  const [evidenceError, setEvidenceError] = useState(null);
   const [form, setForm] = useState({
     name: experience.name || '',
     category: experience.category || '',
@@ -23,15 +27,21 @@ function ExperienceDetailModal({ experience, onClose, onUpdated }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchSkillData() {
-      const [{ data: allSkills }, { data: expSkillRows }] = await Promise.all([
+    async function fetchLinkedData() {
+      const [
+        { data: allSkills },
+        { data: expSkillRows },
+        { data: linkedEvidence },
+      ] = await Promise.all([
         supabase.from('skills').select('skill_id, name').order('name'),
         supabase.from('experience_skills').select('skill_id').eq('experience_id', experience.id),
+        supabase.from('experience_evidence').select('evidence_id, evidence(evidence_id, file_name, url)').eq('experience_id', experience.id),
       ]);
       setSkills(allSkills || []);
       setSelectedSkillIds((expSkillRows || []).map((r) => r.skill_id));
+      setEvidenceList((linkedEvidence || []).map((r) => r.evidence).filter(Boolean));
     }
-    fetchSkillData();
+    fetchLinkedData();
   }, [experience.id]);
 
   function handleChange(e) {
@@ -49,6 +59,49 @@ function ExperienceDetailModal({ experience, onClose, onUpdated }) {
     setSkills((prev) => [...prev, { skill_id: newSkill.skill_id, name: newSkill.name }]);
     setSelectedSkillIds((prev) => [...prev, newSkill.skill_id]);
     setShowNewSkillModal(false);
+  }
+
+  async function handleAddEvidence() {
+    setEvidenceError(null);
+    if (!newEvidence.file_name.trim()) {
+      setEvidenceError('Nama evidence wajib diisi.');
+      return;
+    }
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const { data: newEv, error: evError } = await supabase
+      .from('evidence')
+      .insert({
+        user_id: user.id,
+        file_name: newEvidence.file_name.trim(),
+        url: newEvidence.url.trim() || null,
+      })
+      .select()
+      .single();
+
+    if (evError) {
+      setEvidenceError('Gagal menambahkan evidence.');
+      return;
+    }
+
+    const { error: linkError } = await supabase
+      .from('experience_evidence')
+      .insert({ experience_id: experience.id, evidence_id: newEv.evidence_id, user_id: user.id });
+
+    if (linkError) {
+      setEvidenceError('Evidence tersimpan tapi gagal dikaitkan. Coba lagi.');
+      return;
+    }
+
+    setEvidenceList((prev) => [...prev, newEv]);
+    setNewEvidence({ file_name: '', url: '' });
+  }
+
+  async function handleDeleteEvidence(evidenceId) {
+    await supabase.from('experience_evidence').delete().eq('experience_id', experience.id).eq('evidence_id', evidenceId);
+    await supabase.from('evidence').delete().eq('evidence_id', evidenceId);
+    setEvidenceList((prev) => prev.filter((e) => e.evidence_id !== evidenceId));
   }
 
   async function handleSubmit(e) {
@@ -229,6 +282,47 @@ function ExperienceDetailModal({ experience, onClose, onUpdated }) {
               + Tambah skill baru
             </button>
           </div>
+        </div>
+
+        <div className="entity-form-field">
+          <label className="entity-form-label">Evidence</label>
+          <p className="entity-form-hint">Bukti nyata dari experience ini — case study, sertifikat kegiatan, dokumentasi, dll.</p>
+          {evidenceList.length > 0 && (
+            <div className="story-evidence-list">
+              {evidenceList.map((ev) => (
+                <div className="story-evidence-item" key={ev.evidence_id}>
+                  {ev.url ? (
+                    <a href={ev.url} target="_blank" rel="noopener noreferrer">{ev.file_name}</a>
+                  ) : (
+                    <span>{ev.file_name}</span>
+                  )}
+                  <button type="button" onClick={() => handleDeleteEvidence(ev.evidence_id)}>
+                    <X size={14} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="story-evidence-add-row">
+            <input
+              type="text"
+              placeholder="Nama evidence (contoh: Case Study Mentoring)"
+              className="entity-form-input"
+              value={newEvidence.file_name}
+              onChange={(e) => setNewEvidence((prev) => ({ ...prev, file_name: e.target.value }))}
+            />
+            <input
+              type="text"
+              placeholder="URL (opsional)"
+              className="entity-form-input"
+              value={newEvidence.url}
+              onChange={(e) => setNewEvidence((prev) => ({ ...prev, url: e.target.value }))}
+            />
+            <button type="button" className="story-evidence-add-btn" onClick={handleAddEvidence}>
+              <Plus size={16} />
+            </button>
+          </div>
+          {evidenceError && <p className="entity-form-error">{evidenceError}</p>}
         </div>
 
         <div className="entity-form-field">
